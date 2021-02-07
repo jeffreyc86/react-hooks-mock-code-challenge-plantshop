@@ -10,8 +10,6 @@ function UpdateForm({updatePrice}) {
         setPrice(0.0)
     }
 
-
-
     return (
         <form onSubmit={handleSubmit}>
             <input type="number" value={price} onChange={(e)=>setPrice(e.target.value)} step="0.01" placeholder="Enter new price..."/>

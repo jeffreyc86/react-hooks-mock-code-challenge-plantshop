@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import UpdateForm from "./UpdateForm"
 
-function PlantCard({plant, deleteById}) {
+function PlantCard({plant, deleteById, updateArray}) {
 
   const [inStock, setInStock] = useState(true)
   const [priceform, setPriceform] = useState(false)
-  const [price, setPrice] = useState(plant.price)
 
 
   const handleClick = () => {
@@ -25,7 +24,7 @@ function PlantCard({plant, deleteById}) {
   .then(res => res.json())
   .then(updatedObj => {
     setPriceform(priceform => !priceform)
-    setPrice(updatedObj.price)
+    updateArray(updatedObj)
   })
   }
 
@@ -37,7 +36,7 @@ function PlantCard({plant, deleteById}) {
     <li className="card">
       <img src={plant.image} alt={plant.name} />
       <h4>{plant.name}</h4>
-      <p>Price: {price}</p>
+      <p>Price: {plant.price}</p>
       {!priceform ? (
         <button onClick={changePrice} className="primary">Update Price</button>
       ) : 

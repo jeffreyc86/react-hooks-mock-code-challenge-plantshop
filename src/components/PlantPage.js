@@ -38,14 +38,7 @@ function PlantPage() {
       .then(res=>res.json())
       .then(() => {
 
-        const newArray = plants.filter(plant => {
-          if (plant.id === id) {
-            return null
-          } else {
-            return true
-          }
-        })
-        console.log(newArray)
+        const newArray = plants.filter(plant => {return plant.id !== id})
         setPlants(newArray)
       })
 
@@ -55,11 +48,24 @@ function PlantPage() {
     return plant.name.toLowerCase().includes(query.toLowerCase())
   })
 
+  const updateArray = (updatedObj) => {
+    const newArray = plants.map(plant => {
+       if (plant.id === updatedObj.id){
+         return updatedObj 
+        } else {
+          return plant
+        }
+    })
+    console.log(newArray)
+    setPlants(newArray)
+  }
+  
+
   return (
     <main>
       <NewPlantForm addPlant={addPlant}/>
       <Search query={query} setQuery={setQuery}/>
-      <PlantList plants={filteredPlants} sendUpToDelete={sendUpToDelete}/>
+      <PlantList plants={filteredPlants} sendUpToDelete={sendUpToDelete} updateArray={updateArray} />
     </main>
   );
 }
